@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B34RN00B'5 Portfolio</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #0f111a;
+            color: #00ff41;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #profile {
+            width: 25%;
+            padding: 20px;
+            background-color: #161b22;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+        }
+        #profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #00ff41;
+        }
+        #profile h1 {
+            margin: 15px 0 5px;
+            font-size: 1.5rem;
+        }
+        #profile p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+        #terminal-container {
+            width: 50%; /* Adjust the width of the terminal */
+            background-color: #0f111a;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+           
+        }
+        #terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1b2330;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+        }
+        #terminal-header .buttons {
+            display: flex;
+            gap: 8px;
+        }
+        #terminal-header .button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .close {
+            background-color: #ff5f56;
+        }
+        .minimize {
+            background-color: #ffbd2e;
+        }
+        .maximize {
+            background-color: #27c93f;
+        }
+        #terminal {
+            flex-grow: 1;
+            background-color: #0f111a;
+            color: #00ff41;
+            padding: 10px;
+            overflow-y: auto;
+            border-radius: 0 0 5px 5px;
+            font-size: 0.8rem; /* Reduced font size */
+            border: 1px solid #398727; /* White border around the terminal */
+        }
+        .line {
+            margin: 5px 0;
+        }
+        .input-line {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem; /* Adjusted input font size */
+        }
+        #user-input {
+            background: none;
+            border: none;
+            color: #00ff41;
+            outline: none;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.8rem; /* Reduced font size */
+        }
+    </style>
+</head>
+<body>
+    <div id="profile">
+        <img src="https://raw.githubusercontent.com/Kaashi-debug/kashi-debug.github.io/refs/heads/main/image.png" alt="Profile Picture">
+        <h1>Kaashi</h1>
+        <p>Student</p>
+    </div>
+    <div id="terminal-container">
+        <div id="terminal-header">
+            <div class="buttons">
+                <div class="button close"></div>
+                <div class="button minimize"></div>
+                <div class="button maximize"></div>
+            </div>
+            <span>root@b34rn00b:~$</span>
+        </div>
+        <div id="terminal">
+            <div class="line">Welcome to B34RN00B's Portfolio - Type <strong>help</strong> for a list of supported commands.</div>
+        </div>
+        <div class="input-line">
+            <span>→ ~ </span>
+            <input type="text" id="user-input" autofocus>
+        </div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const userInput = document.getElementById('user-input');
+
+        const commands = {
+            help: "Available commands: <strong>about</strong>, <strong>contact</strong>, <strong>clear</strong>",
+            about: "Hi! I'm Kaashi, a 13-year-old student who loves CTFs, robotics, and coding!",
+            contact: "Find me on <a href='https://www.instagram.com/akwildlife123/' target='_blank'>Instagram</a>, <a href='https://github.com/Kaashi-debug' target='_blank'>GitHub</a>, or <a href='https://www.youtube.com/@B1n4ryp0ttan' target='_blank'>YouTube</a>.",
+            clear: "clear"
+        };
+
+        function processCommand(input) {
+            const line = document.createElement('div');
+            line.className = 'line';
+            
+            if (commands[input]) {
+                if (input === 'clear') {
+                    terminal.innerHTML = '';
+                } else {
+                    line.innerHTML = commands[input];
+                    terminal.appendChild(line);
+                }
+            } else {
+                line.textContent = `Unknown command: ${input}`;
+                terminal.appendChild(line);
+            }
+
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const input = userInput.value.trim();
+                const commandLine = document.createElement('div');
+                commandLine.className = 'line';
+                commandLine.textContent = `→ ~ ${input}`;
+                terminal.appendChild(commandLine);
+                processCommand(input);
+                userInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
